@@ -1,0 +1,35 @@
+using UnityEngine;
+
+public class Player : MonoBehaviour
+{
+    [SerializeField] private float moveSpeed = 5f;
+    private Rigidbody rb;
+    private SpriteRenderer spriteRenderer;
+    private Animator animator;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
+    }
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+    public void MovePlayer()
+    {
+        Vector2 playerInput = new Vector2(Input.GetAxisRaw("Hozirontal"), Input.GetAxisRaw("Vertical"));
+        rb.linearVelocity = playerInput.normalized * moveSpeed;
+        if (playerInput.x < 0) spriteRenderer.flipX = true;
+        else if (playerInput.x > 0) spriteRenderer.flipX = false;
+        if (playerInput != Vector2.zero) animator.SetBool("isRun", true);
+        else animator.SetBool("isRun", false);
+    }
+}
