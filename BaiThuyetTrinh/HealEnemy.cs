@@ -1,0 +1,33 @@
+using UnityEngine;
+
+public class HealEnemy : Enemy
+{
+    [SerializeField] private GameObject vatPham;
+    protected override void Chet()
+    {
+        base.Chet();
+        RoiVatPham();
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            if (player != null) player.MatMau(satThuong);
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            if (player != null) player.MatMau(doTreGaySatThuong);
+        }
+    }
+    private void RoiVatPham()
+    {
+        if (vatPham != null && mauHienTai <= 0)
+        {
+            GameObject vp = Instantiate(vatPham, transform.position, Quaternion.identity);
+            Destroy(vp, 5f);
+        }
+    }
+}
